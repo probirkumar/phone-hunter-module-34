@@ -4,80 +4,77 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Phone Hunter</title>
+    <title>Practice Phone Hunter</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 
 <body>
     <header>
-        <h1>Welcome to my Phone Hunter!</h1>
+        <h1>Welcome to My Phone Hunter</h1>
     </header>
-    <main class="container">
 
+    <main class="container">
+        <!-- search section -->
         <section>
             <div class="mb-3 w-50">
-                <input id="search-field" type="email" class="form-control mb-2" placeholder="search your phone">
+                <input id="search-field" class="form-control mb-2" type="text" placeholder="Search your Phone"
+                    aria-label="default input example">
                 <button id="btn-search" class="btn btn-primary">Search</button>
             </div>
         </section>
 
         <!-- toggle Spinner -->
-        
         <section>
             <div id="loader" class="d-none">
-                <div style="height: 400px;" class="d-flex justify-content-center align-items-center">
+                <div style="height: 400px;" class="d-flex justify-content-center align align-items-center">
                     <div class="spinner-border text-success" role="status">
                         <span class="visually-hidden">Loading...</span>
                     </div>
                 </div>
             </div>
         </section>
-
-        <!-- search your phones -->
+        <!-- All Phones -->
         <section>
-            <h2>All Phones</h2>
             <div id="phones-container" class="row row-cols-1 row-cols-md-3 g-4">
 
             </div>
             <div id="no-phone-found" class="mt-4 d-none">
-                <h2 class="text-warning">No Phone Found. Please Search the Phone</h2>
+                <h4 class="text-warning">No Phones Found. Please Search the Phones</h4>
             </div>
             <div id="show-all" class="text-center d-none">
                 <div id="btn-show-all" class="btn btn-primary">Show All</div>
             </div>
         </section>
-        <!-- modal contents -->
-        <section>
-            <!-- Button trigger modal -->
-            
+        <!-- modal content -->
+        <!-- Button trigger modal -->
+        
 
-            <!-- Modal -->
-            <div class="modal fade" id="phoneDetailsModal" tabindex="-1" aria-labelledby="phoneDetailsModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="phoneDetailsModalLabel"></h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div id="phone-details" class="modal-body">
-                            
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="phoneDetailsModal" tabindex="-1" aria-labelledby="phoneDetailsModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-3" id="phoneDetailsModalLabel">Phone Details:</h1>
+                        
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div id="phone-details" class="modal-body">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
 
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
-    <script src="js/app.js"></script>
+    <script src="js/practice.js"></script>
 </body>
 
 </html>

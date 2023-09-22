@@ -1,5 +1,5 @@
 const loadPhones = (searchText, dataLimit) => {
-    const url = ` https://openapi.programming-hero.com/api/phones?search=${searchText}`;
+    const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`;
     fetch(url)
         .then(res => res.json())
         .then(data => displayPhones(data.data, dataLimit))
@@ -9,7 +9,8 @@ const displayPhones = (phones, dataLimit) => {
     // console.log(phones);
     const phonesContainer = document.getElementById('phones-container');
     phonesContainer.innerHTML = ``;
-    // Display 10 Phone Only
+
+    // display show only 10 phones
     const showAll = document.getElementById('show-all');
     if (dataLimit && phones.length > 10) {
         phones = phones.slice(0, 10);
@@ -19,7 +20,7 @@ const displayPhones = (phones, dataLimit) => {
         showAll.classList.add('d-none');
     }
 
-    // Display no Phones Found
+    // display no phone found
     const noPhoneFound = document.getElementById('no-phone-found');
     if (phones.length === 0) {
         noPhoneFound.classList.remove('d-none');
@@ -27,83 +28,81 @@ const displayPhones = (phones, dataLimit) => {
     else {
         noPhoneFound.classList.add('d-none');
     }
-    // Display All Phones
 
     phones.forEach(phone => {
+        console.log(phone)
         const phoneDiv = document.createElement('div');
-        phoneDiv.classList.add('col');
+        phoneDiv.classList.add('col')
         phoneDiv.innerHTML = `
-            <div class="card p-4">
-                <h3>Brand: ${phone.brand}</h3>
-                <img src="${phone.image}" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Phone Name: ${phone.phone_name}</h5>
-                    <p class="card-text">Slug: ${phone.slug}</p>
-                    <button onclick="loadPhoneDetails('${phone.slug}')" href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#phoneDetailsModal">Show Details</button>
-                </div>
+        <div class="card p-4">
+            <h3>Brand : ${phone.brand}</h3>
+            <img src="${phone.image}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Name: ${phone.phone_name}</h5>
+                <p>Slug : ${phone.slug}</p>
+                <button onclick="loadPhoneDetails('${phone.slug}')" class="btn btn-primary" href="#" data-bs-toggle="modal" data-bs-target="#phoneDetailsModal" role="button">Search Details</button>
             </div>
+        </div>
         `;
         phonesContainer.appendChild(phoneDiv);
     });
-    // searching stop
+    // stop spinner
     toggleSpinner(false);
-}
+    
+};
 
-const processSearch = (dataLimit) => {
+const processSearch = dataLimit => {
     toggleSpinner(true);
     const searchField = document.getElementById('search-field');
     const searchText = searchField.value;
     loadPhones(searchText, dataLimit);
-    // searchField.value = '';
 }
 
 document.getElementById('btn-search').addEventListener('click', function () {
-    // searching start
+    // start spinner
     processSearch(10);
 });
 
-// Enter Key press Event Handler
+// Enter Key Press Event Handler
 document.getElementById('search-field').addEventListener('keypress', function (event) {
-    // console.log(e.key)
     if (event.key === 'Enter') {
         // code for enter
         processSearch(10);
     }
 });
 
+// toggle Spinner
 const toggleSpinner = isLoading => {
-    const loader = document.getElementById('loader');
+    const loaderSection = document.getElementById('loader');
     if (isLoading) {
-        loader.classList.remove('d-none');
+        loaderSection.classList.remove('d-none')
     }
     else {
-        loader.classList.add('d-none');
+        loaderSection.classList.add('d-none')
     }
-};
+}
 
-// not the best way to load show all
+// not the best way to show all
 document.getElementById('btn-show-all').addEventListener('click', function () {
     processSearch();
 });
 
-const loadPhoneDetails = async id => {
+const loadPhoneDetails = id => {
     const url = `https://openapi.programming-hero.com/api/phone/${id}`;
-    const res = await fetch(url);
-    const data = await res.json();
-    displayPhoneDetails(data.data);
-};
+    fetch(url)
+    .then(res => res.json())
+    .then(data => displayPhoneDetails(data.data))
+}
 
 const displayPhoneDetails = phone => {
-    console.log(phone);
-    const phoneTitle = document.getElementById('phoneDetailsModalLabel');
-    phoneTitle.innerText = phone.name;
+    // console.log(phone);
     const phoneDetails = document.getElementById('phone-details');
     phoneDetails.innerHTML = `
-        <p>Release : ${phone.releaseDate ? phone.releaseDate : 'Release Date not Found'}</p>
-        <p>Storage: ${phone.mainFeatures ? phone.mainFeatures.storage : 'Storage not Found'}</p>
-        <p>BlueTooth : ${phone.others ? phone.others.Bluetooth : 'not found'}</p>
+        <h5>${phone.name}</h5>
+        <p>Release Date : ${phone.releaseDate ? phone.releaseDate : 'no Release date'}</p>
+        <p>Memory : ${phone.mainFeatures.memory}</p>
+        <p>MainFeatures : ${phone.mainFeatures.sensors[0]}</p>
     `;
 }
 
-
-loadPhones('apple');
+// loadPhones('apple');
